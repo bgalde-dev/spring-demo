@@ -1,4 +1,4 @@
-package org.dinism.demosecurity.config;
+package org.dinism.scheduler.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

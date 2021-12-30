@@ -1,4 +1,4 @@
-package org.dinism.demosecurity.service;
+package org.dinism.scheduler.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.dinism.demosecurity.model.Role;
-import org.dinism.demosecurity.model.User;
-import org.dinism.demosecurity.repository.RoleRepository;
-import org.dinism.demosecurity.repository.UserRepository;
+import org.dinism.scheduler.model.Role;
+import org.dinism.scheduler.model.User;
+import org.dinism.scheduler.repository.RoleRepository;
+import org.dinism.scheduler.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

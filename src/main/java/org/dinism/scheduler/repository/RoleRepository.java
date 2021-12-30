@@ -1,6 +1,6 @@
-package org.dinism.demosecurity.repository;
+package org.dinism.scheduler.repository;
 
-import org.dinism.demosecurity.model.Role;
+import org.dinism.scheduler.model.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface RoleRepository extends MongoRepository<Role, String> {

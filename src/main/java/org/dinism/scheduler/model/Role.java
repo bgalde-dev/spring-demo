@@ -1,4 +1,4 @@
-package org.dinism.demosecurity.model;
+package org.dinism.scheduler.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,7 +1,7 @@
-package org.dinism.demosecurity.controller;
+package org.dinism.scheduler.controller;
 
-import org.dinism.demosecurity.model.User;
-import org.dinism.demosecurity.service.CustomUserDetailsService;
+import org.dinism.scheduler.model.User;
+import org.dinism.scheduler.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

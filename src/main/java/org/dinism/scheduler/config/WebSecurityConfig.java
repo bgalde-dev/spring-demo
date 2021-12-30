@@ -1,6 +1,6 @@
-package org.dinism.demosecurity.config;
+package org.dinism.scheduler.config;
 
-import org.dinism.demosecurity.service.CustomUserDetailsService;
+import org.dinism.scheduler.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

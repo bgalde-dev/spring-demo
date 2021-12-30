@@ -1,7 +1,7 @@
-package org.dinism.demosecurity;
+package org.dinism.scheduler;
 
-import org.dinism.demosecurity.model.Role;
-import org.dinism.demosecurity.repository.RoleRepository;
+import org.dinism.scheduler.model.Role;
+import org.dinism.scheduler.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
