@@ -1,6 +1,6 @@
 package org.dinism.scheduler.config;
 
-import org.dinism.scheduler.service.CustomUserDetailsService;
+import org.dinism.scheduler.service.CustomEmployeeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService mongoUserDetails() {
-        return new CustomUserDetailsService();
+        return new CustomEmployeeDetailsService();
     }
 
     @Override

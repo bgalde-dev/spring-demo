@@ -1,7 +1,7 @@
 package org.dinism.scheduler.controller;
 
-import org.dinism.scheduler.model.User;
-import org.dinism.scheduler.service.CustomUserDetailsService;
+import org.dinism.scheduler.model.Employee;
+import org.dinism.scheduler.service.CustomEmployeeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    private CustomUserDetailsService userService;
+    private CustomEmployeeDetailsService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -29,17 +29,17 @@ public class LoginController {
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
+        Employee employee = new Employee();
+        modelAndView.addObject("user", employee);
         modelAndView.setViewName("signup");
         return modelAndView;
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Valid Employee employee, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
+        Employee employeeExists = userService.findUserByEmail(employee.getEmail());
+        if (employeeExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the username provided");
@@ -47,9 +47,9 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("signup");
         } else {
-            userService.saveUser(user);
+            userService.saveUser(employee);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("user", new Employee());
             modelAndView.setViewName("login");
 
         }
@@ -60,9 +60,9 @@ public class LoginController {
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
+        Employee employee = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("currentUser", employee);
+        modelAndView.addObject("fullName", "Welcome " + employee.getFullname());
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName("dashboard");
         return modelAndView;

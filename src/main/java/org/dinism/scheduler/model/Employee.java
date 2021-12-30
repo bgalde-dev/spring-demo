@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-@Document(collection = "user")
-public class User {
+@Document(collection = "employees")
+public class Employee {
     @Id
     private String id;
 

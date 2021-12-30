@@ -1,15 +1,9 @@
 package org.dinism.scheduler.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.dinism.scheduler.model.Employee;
 import org.dinism.scheduler.model.Role;
-import org.dinism.scheduler.model.User;
+import org.dinism.scheduler.repository.EmployeeRepository;
 import org.dinism.scheduler.repository.RoleRepository;
-import org.dinism.scheduler.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,34 +13,36 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomEmployeeDetailsService implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
+    private EmployeeRepository employeeRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Employee findUserByEmail(String email) {
+        return employeeRepository.findByEmail(email);
     }
 
-    public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setEnabled(true);
+    public void saveUser(Employee employee) {
+        employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
+        employee.setEnabled(true);
         Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        userRepository.save(user);
+        employee.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        employeeRepository.save(employee);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email);
-        if(user != null) {
-            List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-            return buildUserForAuthentication(user, authorities);
+        Employee employee = employeeRepository.findByEmail(email);
+        if(employee != null) {
+            List<GrantedAuthority> authorities = getUserAuthority(employee.getRoles());
+            return buildUserForAuthentication(employee, authorities);
         } else {
             throw new UsernameNotFoundException("username not found");
         }
@@ -62,8 +58,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return grantedAuthorities;
     }
 
-    private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    private UserDetails buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(employee.getEmail(), employee.getPassword(), authorities);
     }
 
 }
