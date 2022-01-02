@@ -1,38 +1,36 @@
 package org.dinism.scheduler;
 
-import org.dinism.scheduler.model.Role;
+import org.dinism.scheduler.repository.EmployeeCodeRepository;
+import org.dinism.scheduler.repository.EmployeeRepository;
 import org.dinism.scheduler.repository.RoleRepository;
+import org.dinism.scheduler.util.DataLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-public class DemoSecurityApplication {
+@EnableMongoRepositories
+public class DemoSecurityApplication implements CommandLineRunner {
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private EmployeeCodeRepository employeeCodeRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoSecurityApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner init(RoleRepository roleRepository) {
+    @Override
+    public void run(String... args) throws Exception {
 
-        return args -> {
-
-            Role adminRole = roleRepository.findByRole("ADMIN");
-            if (adminRole == null) {
-                Role newAdminRole = new Role();
-                newAdminRole.setRole("ADMIN");
-                roleRepository.save(newAdminRole);
-            }
-
-            Role userRole = roleRepository.findByRole("USER");
-            if (userRole == null) {
-                Role newUserRole = new Role();
-                newUserRole.setRole("USER");
-                roleRepository.save(newUserRole);
-            }
-        };
+        DataLoader dataLoader = new DataLoader();
+        dataLoader.loadRoles();
+        dataLoader.loadEmployees();
 
     }
+
 }

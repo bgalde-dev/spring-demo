@@ -2,6 +2,7 @@ package org.dinism.scheduler.service;
 
 import org.dinism.scheduler.model.Employee;
 import org.dinism.scheduler.model.Role;
+import org.dinism.scheduler.repository.EmployeeCodeRepository;
 import org.dinism.scheduler.repository.EmployeeRepository;
 import org.dinism.scheduler.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
     private EmployeeRepository employeeRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private EmployeeCodeRepository employeeCodeRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.DayOfWeek;
+import java.util.Hashtable;
 import java.util.Set;
 
 @Document(collection = "employees")
@@ -16,12 +18,23 @@ public class Employee {
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String email;
 
-    private String password;
-    private String fullname;
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
+    private String employeeId;
+
     private boolean enabled;
 
-    @DBRef
-    private Set<Role> roles;
+    private String password;
+    private String name;
+    private int seniority;
+    private String status;
+    private String licenseClass;
+    private Hashtable<DayOfWeek, String> schedule;
+    private String location;
+    private String startLocation;
+    private String workPhone;
+    private String personalPhone;
+    private @DBRef Set<Role> roles;
+    private @DBRef Set<EmployeeCode> codes;
 
     public String getId() {
         return id;
@@ -39,6 +52,14 @@ public class Employee {
         this.email = email;
     }
 
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -47,20 +68,76 @@ public class Employee {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getName() {
+        return name;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public int getSeniority() {
+        return seniority;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setSeniority(int seniority) {
+        this.seniority = seniority;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLicenseClass() {
+        return licenseClass;
+    }
+
+    public void setLicenseClass(String licenseClass) {
+        this.licenseClass = licenseClass;
+    }
+
+    public Hashtable<DayOfWeek, String> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Hashtable<DayOfWeek, String> schedule) {
+        this.schedule = schedule;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getStartLocation() {
+        return startLocation;
+    }
+
+    public void setStartLocation(String startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public void setWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+    }
+
+    public String getPersonalPhone() {
+        return personalPhone;
+    }
+
+    public void setPersonalPhone(String personalPhone) {
+        this.personalPhone = personalPhone;
     }
 
     public Set<Role> getRoles() {
@@ -69,5 +146,21 @@ public class Employee {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<EmployeeCode> getCodes() {
+        return codes;
+    }
+
+    public void setCodes(Set<EmployeeCode> codes) {
+        this.codes = codes;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
