@@ -27,9 +27,7 @@ public class DemoSecurityApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        DataLoader dataLoader = new DataLoader();
-        dataLoader.loadRoles();
-        dataLoader.loadEmployees();
+        // TODO: init stuff
 
     }
 

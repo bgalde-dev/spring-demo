@@ -9,6 +9,7 @@ import org.dinism.scheduler.repository.EmployeeCodeRepository;
 import org.dinism.scheduler.repository.EmployeeRepository;
 import org.dinism.scheduler.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +24,7 @@ import java.util.Hashtable;
 
 @Component
 @EnableMongoRepositories
-public class DataLoader {
+public class DataLoader  implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
@@ -33,6 +34,15 @@ public class DataLoader {
     EmployeeCodeRepository employeeCodeRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        this.loadRoles();
+        this.loadEmployeeCodes();
+        this.loadEmployees();
+
+    }
 
     public void loadRoles() {
         // ADD ROLES
