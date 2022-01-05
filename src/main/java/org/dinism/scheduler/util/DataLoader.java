@@ -105,7 +105,7 @@ public class DataLoader  implements CommandLineRunner {
         try {
             // Create an object of file reader
             // class with CSV file as a parameter.
-            File resource = new ClassPathResource("assets/employees-01.csv").getFile();
+            File resource = new ClassPathResource("assets/employees.csv").getFile();
             FileReader filereader = new FileReader(resource);
 
             // create csvReader object and skip first Line
