@@ -21,6 +21,7 @@ import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 
 @Component
 @EnableMongoRepositories
@@ -46,28 +47,54 @@ public class DataLoader  implements CommandLineRunner {
 
     public void loadRoles() {
         // ADD ROLES
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        if (adminRole == null) {
-            adminRole = new Role();
-            adminRole.setRole("ADMIN");
-            roleRepository.save(adminRole);
+        Role role = roleRepository.findByRole("ADMIN");
+        if (role == null) {
+            role = new Role();
+            role.setRole("ADMIN");
+            roleRepository.save(role);
         }
 
-        Role userRole = roleRepository.findByRole("DRIVER");
-        if (userRole == null) {
-            userRole = new Role();
-            userRole.setRole("DRIVER");
-            roleRepository.save(userRole);
+        role = roleRepository.findByRole("DRIVER");
+        if (role == null) {
+            role = new Role();
+            role.setRole("DRIVER");
+            roleRepository.save(role);
+        }
+
+        role = roleRepository.findByRole("SCHEDULER");
+        if (role == null) {
+            role = new Role();
+            role.setRole("SCHEDULER");
+            roleRepository.save(role);
         }
     }
 
     public void loadEmployeeCodes() {
-        EmployeeCode vipCode = employeeCodeRepository.findByCode("VIP");
-        if (vipCode == null) {
-            vipCode = new EmployeeCode();
-            vipCode.setCode("VIP");
-            vipCode.setDescription("To be used for VIP trips");
-            employeeCodeRepository.save(vipCode);
+        EmployeeCode code = employeeCodeRepository.findByCode("VIP");
+        if (code == null) {
+            code = new EmployeeCode();
+            code.setCode("VIP");
+            code.setCharCode('V');
+            code.setDescription("To be used for VIP trips");
+            employeeCodeRepository.save(code);
+        }
+
+        code = employeeCodeRepository.findByCode("LIMO");
+        if (code == null) {
+            code = new EmployeeCode();
+            code.setCode("LIMO");
+            code.setCharCode('L');
+            code.setDescription("Can drive stretch non-class B vehicles");
+            employeeCodeRepository.save(code);
+        }
+
+        code = employeeCodeRepository.findByCode("ANDY");
+        if (code == null) {
+            code = new EmployeeCode();
+            code.setCode("ANDY");
+            code.setCharCode('R');
+            code.setDescription("Some code that Andy has");
+            employeeCodeRepository.save(code);
         }
     }
 
@@ -115,9 +142,11 @@ public class DataLoader  implements CommandLineRunner {
                 schedule.put(DayOfWeek.THURSDAY,nextLine[12]);
                 schedule.put(DayOfWeek.FRIDAY,nextLine[13]);
                 schedule.put(DayOfWeek.SATURDAY,nextLine[14]);
+                employee.setSchedule(schedule);
 
                 // TODO: PARSE AND CREATE CODES
-                String codes = nextLine[2];
+                char[] codes = nextLine[2].toUpperCase().toCharArray();
+                employee.setCodes(this.employeeCodeParser(codes));
 
                 employeeRepository.save(employee);
             }
@@ -125,5 +154,16 @@ public class DataLoader  implements CommandLineRunner {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public Set<EmployeeCode> employeeCodeParser(char[] charCodes) {
+        HashSet<EmployeeCode> codes = new HashSet<>();
+        for ( char c: charCodes ) {
+            EmployeeCode code = employeeCodeRepository.findByCharCode(c);
+            if (code != null) {
+                codes.add(code);
+            }
+        }
+        return codes;
     }
 }
