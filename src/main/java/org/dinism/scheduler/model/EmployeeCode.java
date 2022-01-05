@@ -13,6 +13,7 @@ public class EmployeeCode {
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String code;
+    private char charCode;
     private String description;
 
     public String getId() {
@@ -38,4 +39,8 @@ public class EmployeeCode {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public char getCharCode() { return charCode; }
+
+    public void setCharCode(char charCode) { this.charCode = charCode; }
 }

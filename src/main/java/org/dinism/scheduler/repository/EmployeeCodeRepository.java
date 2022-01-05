@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface EmployeeCodeRepository  extends MongoRepository<EmployeeCode, String> {
 
     EmployeeCode findByCode(String code);
+
+    EmployeeCode findByCharCode(char charCode);
 }
