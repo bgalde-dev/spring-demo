@@ -18,5 +18,7 @@ So with the basic app need to refactor a few things. Need to rename the packages
 of the project. Since this is going to be a scheduling and timesheet app will go with `org.dinism.scheduler` as the base package name.
 Then change `User` class to `Employee` along with appropriate repository and service classes.
 
+# TODO
+
 
 
