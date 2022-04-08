@@ -19,7 +19,7 @@ of the project. Since this is going to be a scheduling and timesheet app will go
 Then change `User` class to `Employee` along with appropriate repository and service classes.
 
 # TODO
-Relook at compleate project and see what needs to be done.
+Take a look at the compleate project and see what needs to be done.
 
 
 
